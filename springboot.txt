@@ -1,0 +1,526 @@
+2) jar files:
+pom.xml
+bulding:
+a)setting jar files intoclasspath
+b)compile
+c)folder strucutre
+d)copy file into classes folder
+e)copy jars into lib flder
+f)provide web configuration(web.xml) into web -inf
+g)genrate war  file
+h)copy war file into tomact webapps folder
+======================================================
+===========maven with springboot= =======
+
+a)jar file
+spring boot:pom.xml
+spring initilizer
+java
+maven buildtool
+ spring boot version 2.7.16 
+pakage com.slokam
+jar file
+java version 8
+spring web
+Genrate
+jarfile download extract sample
+spring boot :pom
+===================
+1)springinitilzer download
+2)unzip
+3)
+4)run main
+==================================================================================================
+12/09/2023
+package com.slokam;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class RequestHandler {
+	@GetMapping("hello")
+	public String hi() {
+		return "hi";
+	}
+	@GetMapping("manu")
+	public String manu() {
+		return "srinivas";
+	}
+	@GetMapping("intdata")
+	public Integer getintdata() {
+		return 1000;
+	}
+	@GetMapping("getStringdata")
+	public String[] getdata() {
+		return new String[] {"one","two","three"};
+		
+	}
+	@GetMapping("getmap")
+	public Map<String, Integer> getmap(){
+		Map map = new HashMap<>();
+		map.put("srinivas",1);
+		map.put("ram", 2);
+		map.put("raz",3);
+	     
+		return  map;
+		
+	}
+
+	@GetMapping("getmap4")
+	public List<Integer> getdata3(){
+		
+		List<Integer>list=Arrays.asList(1,3,4,56);
+		
+		
+		return list;
+		
+		
+	}
+	@GetMapping("map6")
+	public Map<String, Integer[]> getmap5(){
+		Map<String, Integer[]> map =new HashMap<>();
+		map.put("ram",new Integer[] {1,2,3,4,56,3});
+		map.put("manu",new Integer[] {1,2,3,4,56,3});
+		map.put("raz",new Integer[] {1,2,3,4,56,3});
+		map.put("sai",new Integer[] {1,2,3,4,56,3});
+		map.put("shahi",new Integer[] {1,2,3,4,56,3});
+		return map;
+		
+	}
+	@GetMapping("map7")
+	public Product getdataa() {
+		 Product  p = new Product();
+		p.setPid(1);
+		p.setPname("samsung");
+		p.setPprice(20.0);
+		return p;
+		
+	}
+	
+	
+
+}
+
+go post man : get:http://localhost:8085/getdata10
+ Request and Response
+==================================================================================================================
+=====================13/sept/2023=====0=======
+download postman
+64bit
+singn in skip
+The primary or most-commonly-used HTTP verbs (or methods, as they are properly called) are POST, GET, PUT, and DELETE.
+ These correspond to create, read, update, and delete (or CRUD) operations,
+ respectively. There are a number of other verbs, too, but are utilized less frequently.
+post->create
+get->read
+put->update
+delete->delete
+
+
+Multiple identical requests will delete same resource
+postman server:http://localhost:8082/getmap4
+
+package com.slokam;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class RecivingHandler {
+	@RequestMapping("data1")
+	public void Student(
+			@RequestParam("id")Integer sid,
+			@RequestParam("name")String sname) {
+		
+		
+	System.out.println("id"+sid);
+	
+System.out.println("name"+sname);
+	}
+++++++++++++++++++=bakend application to client server we are using++++++++++++++++++++++++++++
+Http://localhost:8085/getdata11?sid=1&sname=srinivas&sage=12,squl=btech
+	@Requstparam using  forexample  sid=id,sname=name,sage =age tisukuntundi
+----------------------------------------------------------------------------------------------------------------
+pblic class RecivingHandler {
+	@GetMapping("getdata10")
+	public void  Student(
+			 Integer sid,
+			String sname,
+			 Integer sage,
+			String squl
+) {
+		System.out.println("sid:"+sid);
+		System.out.println("sname:"+sname);
+		System.out.println("sage:"+sage);
+		System.out.println("squl:"+squl);
+	}	
+}
+
+note:Request parameter.(query parameters)
+
+++++++++++++Recing controller  client server to bakendend Application 
+//http://localhost8082/getdata?name = shiva&age=2&qul=mtech
+ without @Requestparam  using  
+ for Example :sid=sid,sname=sname,sage=sage,squl=squl
+===================================================================================================================
+
+	============================14/09/2023=======================================
+
+1)RequestParameters.(query parameters)
+//http://localhost:8080/getdata?name = shiva&age =2&qul=mtech
+2)path varrible
+//http://loca;lhost:8080/getdata/shiva/2/mtech
+3)form data
+4)Requestbody
+//http:localhost:8080/getdata
+
+@RestController
+public class Studentpathvarrible {
+	@GetMapping("pathvarible/{id}/{name}/{age}")
+	public void getstudentpath(
+			@PathVariable("id")Integer id,
+			@PathVariable("name")String sname,
+			@PathVariable("age")double sage) {
+			
+		System.out.println("id"+id);
+		System.out.println("name"+sname);
+		System.out.println("age"+sage);
+	}
+		
+}
+
+http://localhost:8082/pathvarible/1/banda/20.4
+path varrible
+//http:localhost:8082/getdata/shiva/2				/mtech
+-------------------------------------------------------------------------------------------------
+RestController
+public class Studentpathvarribles {
+	
+
+	@GetMapping("pathvarible/{id}/{name}/{age}/{qul}")
+	public void Student(
+	@PathVariable("id") Integer sid,
+	@PathVariable("name") String sname,
+	@PathVariable("age") Integer sage,
+	@PathVariable("qul") String squl
+			
+			) {
+		
+		System.out.println("sid:"+sid);
+		System.out.println("sname:"+sname);
+		System.out.println("sage:"+sage);
+		System.out.println("squl:"+squl);
+		
+}
+}
+ go post man:
+http://localhost:8085/pathvarible/1/srinivas/22/btech
+path varrible means :requesting into client data  reciving th bakend application using 
+at client server http://localhost:8085/pathvarible/1/srinivas/22/btech
+at we using at bakend application in code: above method:	@GetMapping("pathvarible/{id}/{name}/{age}/{qul}
+
+
+=====================================================================================================
+3)form data
+without using pojo class
+GetMapping("formtest")
+	public void formtest(
+			@RequestParam("bookid")Integer id,
+			@RequestParam("bookname")String name,
+			@RequestParam("author")String author ) {
+			
+			System.out.println("bookid:"+id);
+			System.out.p rintln("bookname:"+name);
+			System.out.println("author:"+author);
+			
+		
+				
+			}
+form data : means :Requsting into client data into bakend application using form data 
+inside the form data we have entere valuees
+
+http://localhost:8082/formtest  
+
+go to postman:
+body
+key
+
+bookid=1
+bookname:allinone
+author:jamesburg
+==================================================================================================================
+4)  iam using pojo class
+@PostMapping("requestbody")
+    public void Requestbody(
+    		@RequestBody Product p) {
+    		
+    		
+    	System.out.println(p);
+
+}
+select row ,json
+post:http://localhost:8082/requestbody
+    "pid":1,
+    "pname":"srinivas",
+    "pprice":20.2
+-----------------------------------------------------------------
+
+@RestController
+public class Formdatacontroller {
+	
+@GetMapping("getdata14")
+	public void Requestbody(
+			@RequestBody Student s
+			
+			) {
+		System.out.println(s);
+}}
+Q) How to save the data using spring boot
+ans:
+this way using save the data=>iam taking one pojo class
+and one method RequestbdoY(
+QRequestbody Stduent s
+){
+sysou(s);
+http://localhost:8080/getdata14
+selct row using jason format client servert to database  print the data
+inside the client
+"sid":"1",
+"sname":"srinivas",
+"sage":"22",
+"squl":"btech"
+this data  coming in to the spring boot application
+
+
+ 
+
+
+================================================================================================================
+===========================15/sept/2023==================================================================
+get->
+put->
+post->
+delete->
+1)Types of Http methods and requsetmapping annotations
+2)using pojo for requestparaes,pathvarribles,form data and raw data(json)
+3)Data coversions
+-------------------------------------------------------------
+package com.slokam;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("asset")
+public class Assetcontroller {
+	@PostMapping
+	public void saveAsset(
+		@RequestBody Asset asset
+		
+			) {
+		System.out.println(asset);
+	}
+ go to postaman:
+post:http://localhost:8082/asset
+form data   without Requestbody
+joson format:"aid":1,
+             "aname":"srinivas",
+              "adeccription":"full",
+
+
+---------------------------------------------------------
+	@PutMapping
+	public void updateAsset(
+			@RequestBody Asset asset
+			
+				) {
+		
+			System.out.println("update:"+asset);
+		}
+go to postaman:
+put:http://localhost:8082/asset
+form data   without Requestbody
+joson format:"aid":1,
+             "aname":"srinivas",
+              "adeccription":"full",
+
+--------------------------------------------------
+
+	@DeleteMapping
+	public void deleteAsset(
+			@RequestBody Asset asset
+			) {
+		System.out.println("delete:"+asset);
+			
+	}
+go to postaman:
+delete:http://localhost:8082/asset
+form data   without Requestbody
+joson format:"aid":1,
+             "aname":"srinivas",
+              "adeccription":"full",
+--------------------------------------------------------
+	@GetMapping("/{aid}/{aname}/{adescription}")
+	public void getAsset(
+			 Asset asset) {
+		System.out.println("getpath varrible---");
+		
+		System.out.println(asset);
+		
+	}
+}
+get:http://localhost:8082/asset/{/aid}/{aname}/{adescriptin}
+
+15/sept /2023 calss close
+=========================================================================================================
+===================16/sept/2023==============================================
+1)request parametes
+2)path varrible
+3)form data
+4)file upload
+package com.slokam;
+============================one text file to spring booot application========================
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+@RestController
+@RequestMapping("file")
+public class FileuploadController {
+	@PostMapping("upload")
+	public void fileupload(
+		@RequestParam("fileName") MultipartFile multi) throws IOException {
+		
+		System.out.println(multi.getName());
+		System.out.println(multi.getOriginalFilename());
+		System.out.println(multi.getSize());
+		System.out.println(multi.getBytes());
+		System.out.println(multi.getResource());
+		
+		
+		
+		//multi.transferTo(new File("E:\\c\\slokam\\student.txt"));
+		multi.transferTo(new File("E:\\c\\rama\\new\\student.txt"));
+
+String path="E:\\c\\student.txt"+multi.getOriginalFilename();
+
+           File f = new File(path);
+           System.out.println(f);
+--------------------------------------------------------------------
+one file to another file datatransfer===>
+FileReader s = new FileReader("E:\\c\\rama\\new\\somu\\student.txt");
+
+		BufferedReader br = new BufferedReader(s);
+				for(String i = br.readLine();i!=null;i=br.readLine()) {
+				System.out.println(i);
+				}
+	
+	}
+ class close16/sep/2023
+}			
+==============================================================================================================		
+==========================================================================
+20/09.2021
+
+
+status code:
+200 :scuccess
+201:created
+400:bad data
+401:aunthentication
+403:autarization
+404:not found
+405:method not allowed
+406:not accept
+409:conflict
+415:media not supported
+500:interneal server error	
+	
+	
+
+===============================================
+=================================date 21/sept/2023===============
+pojo class employe 
+id 
+name
+pancard
+salry
+desg
+----------------
+@Restcontroller
+@Requestmapping("employe")
+public class Employe controller{
+
+
+@postmapping()
+public ResponceEntity<Employe> saveEmploye(@Requustbody Employe emp){
+
+sysou(emp);
+//saving
+ResponseEntity<Employe>res = new ResponseEntity<>(Httpstatus.Created);
+return res;
+-------------------------------------------
+@GetMapping("getstudent")
+	public ResponseEntity<List<Student>>getStudentByid(Integer id){
+		Student student = new Student(1,"srinivas",22,"btech");
+		ResponseEntity<List<Student>>s = new ResponseEntity(HttpStatus.OK);
+		return s;
+		
+	}
+	
+=====================================================================
+23/09/2023=================
+====================================23/09/2023================================
+completed topics:
+1)mappings
+2)5 ways get data
+3)
+----------------------------------------------------------------------------------
+we have Exception handilig
+taking new project
+projectname:Exception handling
+taking:spring web validations
+one class:
+concept
+ control method
+error code objects ne return chestham
+try catch rayadam valla code redendency vastundi
+public our Exception{
+
+
+ 
+ 
+
+
+
+   
+
+
+	
+
+
+
+
+
+
+
+
